@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import numpy as np
 import pandas as pd
-import zipfile
 import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
@@ -87,6 +86,7 @@ def main() :
           min_score_thresh=.30,
           agnostic_mode=False)
 
+    # show 
     cv2.imshow(str(img_path), image_np_with_detections)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
