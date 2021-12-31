@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 from obj_detection_func import run_obj_detection
-# from object_detection.utils import ops as utils_ops
 import tensorflow as tf
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
@@ -35,11 +34,9 @@ def main() :
                  'CenterNet MobileNetV2 FPN 512x512/speed : 6' : ['20210210', 'centernet_mobilenetv2fpn_512x512_coco17_od'],
                  'EfficientDet D0 512x512/speed : 39' : ['20200711', 'efficientdet_d0_coco17_tpu-32'],
                  'SSD MobileNet v2 320x320/speed : 19' : ['20200711', 'ssd_mobilenet_v2_320x320_coco17_tpu-8']}
-    model_selected = st.selectbox('', model_dic.keys())
+    model_selected = st.selectbox('model select', model_dic.keys())
     MODEL_DATE = model_dic[model_selected][0]
     MODEL_NAME = model_dic[model_selected][1]
-    st.header('')
-    st.header('')
     st.subheader('File Upload(.jpg)')
     dir = 'data'
     upload_img = st.file_uploader('Choose a image file', type = ['jpg'])
@@ -49,5 +46,7 @@ def main() :
 
         # 모델 다운로드
         PATH_TO_MODEL_DIR = download_model(MODEL_NAME, MODEL_DATE)
-        if st.button('Object Detection Execute') : run_obj_detection(PATH_TO_MODEL_DIR, img_path)
+        min_score_slider = st.slider('score adjusting(%)', min_value = 10, max_value = 100, value = 50)
+        # if st.button('Object Detection Execute') : run_obj_detection(PATH_TO_MODEL_DIR, img_path, min_score_slider)
+        run_obj_detection(PATH_TO_MODEL_DIR, img_path, min_score_slider)
 if __name__ == '__main__' : main()

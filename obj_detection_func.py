@@ -17,12 +17,7 @@ def load_model(model_dir) :
     detection_model = tf.saved_model.load(model_full_dir)
     return detection_model
 
-
-
-
-def run_obj_detection(PATH_TO_MODEL_DIR, img_path) :
-    
-    
+def run_obj_detection(PATH_TO_MODEL_DIR, img_path, min_score_slider) :
     # 카테고리인덱스 경로 설정
     PATH_TO_LABELS = 'C:\\Users\\gahye\\OneDrive\\Documents\\Tensorflow\\models\\research\\object_detection\\data\\mscoco_label_map.pbtxt'
     category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS)
@@ -53,7 +48,7 @@ def run_obj_detection(PATH_TO_MODEL_DIR, img_path) :
           category_index,
           use_normalized_coordinates=True,
           max_boxes_to_draw=200,
-          min_score_thresh=.30,
+          min_score_thresh=(min_score_slider/100),
           agnostic_mode=False)
 
     # show 
