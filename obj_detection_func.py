@@ -57,4 +57,5 @@ def run_obj_detection(PATH_TO_MODEL_DIR, img_path) :
           agnostic_mode=False)
 
     # show 
+    # channels를 설정해 주지 않으면 빨간색을 인식하지 못한다 -> 정홍근님 tip
     st.image(image_np_with_detections, channels='BGR')
